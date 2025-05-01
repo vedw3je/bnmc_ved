@@ -21,7 +21,7 @@ class CardItem extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Container(
           width: 150, // Width for each card
-          height: 150, // Height for each card
+          height: 170, // Height for each card
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: Colors.white,
@@ -39,8 +39,8 @@ class CardItem extends StatelessWidget {
             children: [
               Image.asset(
                 imagePath,
-                width: 50, // Adjust the size of the image
-                height: 50,
+                width: 70, // Adjust the size of the image
+                height: 70,
                 fit:
                     BoxFit
                         .contain, // Ensures the image fits inside the container

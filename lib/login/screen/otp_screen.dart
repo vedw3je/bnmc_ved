@@ -14,14 +14,29 @@ class OtpScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[700],
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset('assets/bncmc_logo.jpeg'),
-        ),
+
         centerTitle: true,
-        title: const Text(
-          'Bhiwandi mSeva',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        title: Row(
+          mainAxisSize: MainAxisSize.min, // Prevent extra space
+
+          children: [
+            SizedBox(
+              width: 60,
+              height: 30,
+              child: Image.asset(
+                'assets/drawable/bncmc_nav_head.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(width: 8), // Space between image and text
+            const Text(
+              'Bhiwandi mSeva',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
       body: BlocListener<LoginCubit, LoginState>(
@@ -33,14 +48,14 @@ class OtpScreen extends StatelessWidget {
           }
           if (state is LoginSuccessful) {
             print('OTP Verified - Navigating to Home');
-            Future.microtask(() {
-              if (context.mounted) {
-                Navigator.pop(context);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => HomeScreen()),
-                );
-              }
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => HomeScreen(contactNumber: contactNumber),
+                ),
+              );
             });
           }
         },

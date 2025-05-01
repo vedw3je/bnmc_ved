@@ -16,13 +16,28 @@ class AlreadyRegisteredScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.deepPurple[700],
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset('assets/bncmc_logo.jpeg'),
-        ), // Icon to the left
-        title: Text(
-          'Bhiwandi mSeva',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+
+        title: Row(
+          mainAxisSize: MainAxisSize.min, // Prevent extra space
+
+          children: [
+            SizedBox(
+              width: 60,
+              height: 30,
+              child: Image.asset(
+                'assets/drawable/bncmc_nav_head.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(width: 8), // Space between image and text
+            const Text(
+              'Bhiwandi mSeva',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ), // Title in the AppBar
       ),
       body: BlocListener<LoginCubit, LoginState>(
