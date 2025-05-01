@@ -14,7 +14,8 @@ class AlreadyRegisteredScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple[700], // Violet color for the AppBar
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple[700],
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Image.asset('assets/bncmc_logo.jpeg'),
@@ -95,7 +96,7 @@ class AlreadyRegisteredScreen extends StatelessWidget {
                   onPressed: () {
                     final contactNo = contactController.text.trim();
                     if (contactNo.isNotEmpty) {
-                      context.read<LoginCubit>().login(contactNo);
+                      context.read<LoginCubit>().sendOtp(contactNo);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

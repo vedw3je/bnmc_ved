@@ -1,11 +1,13 @@
 import 'package:bncmc/home/homescreen.dart';
 import 'package:bncmc/login/bloc/login_cubit.dart';
 import 'package:bncmc/login/screen/already_registered.dart';
-import 'package:bncmc/repository/bnmc_repository.dart';
+import 'package:bncmc/repository/login_repository.dart';
 import 'package:bncmc/splashscreen/widget/KenBurnsSplash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../repository/user_details_repository.dart';
 
 class SplashScreen extends StatelessWidget {
   @override
@@ -17,7 +19,11 @@ class SplashScreen extends StatelessWidget {
           MaterialPageRoute(
             builder:
                 (_) => BlocProvider(
-                  create: (_) => LoginCubit(BnmcRepository()),
+                  create:
+                      (_) => LoginCubit(
+                        LoginRepository(),
+                        UserDetailsRepository(),
+                      ),
                   child: AlreadyRegisteredScreen(),
                 ),
           ),

@@ -18,6 +18,7 @@ class OtpScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Image.asset('assets/bncmc_logo.jpeg'),
         ),
+        centerTitle: true,
         title: const Text(
           'Bhiwandi mSeva',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -34,6 +35,7 @@ class OtpScreen extends StatelessWidget {
             print('OTP Verified - Navigating to Home');
             Future.microtask(() {
               if (context.mounted) {
+                Navigator.pop(context);
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (_) => HomeScreen()),
