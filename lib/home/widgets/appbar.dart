@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  const CustomAppBar({super.key, required this.scaffoldKey});
+
+  @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
 
+class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -14,15 +21,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         icon: const Icon(Icons.menu, color: Colors.white),
         onPressed: () {
-          // TODO: Open drawer or handle menu tap
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text("Menu tapped")));
+          print("Menu tapped");
+          widget.scaffoldKey.currentState?.openDrawer();
         },
       ),
       title: Row(
-        mainAxisSize: MainAxisSize.min, // Prevent extra space
-
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
             width: 60,
@@ -32,19 +36,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(width: 8), // Space between image and text
+          const SizedBox(width: 8),
           const Text(
             'Bhiwandi mSeva',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ],
       ),
-
       actions: [
         IconButton(
           icon: const Icon(Icons.person, color: Colors.white),
           onPressed: () {
-            // TODO: Navigate to profile or handle tap
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(const SnackBar(content: Text("Profile tapped")));

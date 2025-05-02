@@ -1,4 +1,5 @@
 import 'package:bncmc/home/widgets/appbar.dart';
+import 'package:bncmc/home/widgets/drawer.dart';
 import 'package:bncmc/home/widgets/homecards.dart';
 import 'package:bncmc/register/model/user_details.dart';
 import 'package:bncmc/repository/user_details_repository.dart';
@@ -14,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   UserDetails? userDetails;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<UserDetails?> getUserDetails() async {
     // Fetch user details from the repository
@@ -46,9 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       child: Scaffold(
+        key: _scaffoldKey,
+        drawer: BNMCDrawer(scaffoldKey: _scaffoldKey, userDetails: userDetails),
         backgroundColor:
             Colors.transparent, // Make scaffold background transparent
-        appBar: const CustomAppBar(),
+        appBar: CustomAppBar(scaffoldKey: _scaffoldKey),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
