@@ -1,5 +1,6 @@
 import 'package:bncmc/bnmc_map/bnmc_map.dart';
 import 'package:bncmc/register/model/user_details.dart';
+import 'package:bncmc/webview/webview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -81,6 +82,17 @@ class _BNMCDrawerState extends State<BNMCDrawer> {
             title: 'About BNMC',
             onTap:
                 () => _onItemTap(0, () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) => const WebViewScreen(
+                            url:
+                                "https://en.wikipedia.org/wiki/Bhiwandi-Nizampur_City_Municipal_Corporation",
+                            method: "GET",
+                          ),
+                    ),
+                  );
                   // Navigate to About screen
                 }),
           ),
