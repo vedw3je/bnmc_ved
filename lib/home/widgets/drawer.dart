@@ -86,14 +86,15 @@ class _BNMCDrawerState extends State<BNMCDrawer> {
                     context,
                     MaterialPageRoute(
                       builder:
-                          (context) => const WebViewScreen(
+                          (context) => WebViewScreen(
                             url:
-                                "https://en.wikipedia.org/wiki/Bhiwandi-Nizampur_City_Municipal_Corporation",
-                            method: "GET",
+                                "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/Transaction/FrmAboutMsg.aspx",
+                            email: widget.userDetails!.email,
+                            phoneNumber: widget.userDetails!.mobileNo,
+                            method: "POST",
                           ),
                     ),
                   );
-                  // Navigate to About screen
                 }),
           ),
           _buildDrawerItem(
@@ -138,7 +139,22 @@ class _BNMCDrawerState extends State<BNMCDrawer> {
             index: 6,
             icon: Icons.group,
             title: 'Officers List',
-            onTap: () => _onItemTap(6, () {}),
+            onTap:
+                () => _onItemTap(6, () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) => WebViewScreen(
+                            url:
+                                "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/Transaction/FrmOfficerList.aspx?@=1",
+                            email: widget.userDetails!.email,
+                            phoneNumber: widget.userDetails!.mobileNo,
+                            method: "POST",
+                          ),
+                    ),
+                  );
+                }),
           ),
         ],
       ),

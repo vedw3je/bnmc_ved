@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xml/xml.dart'; // To parse XML responses
 import 'package:html_unescape/html_unescape.dart';
 
@@ -145,6 +146,21 @@ class LoginRepository {
           document.findAllElements('Registration_BNCMCResult').first.text;
       log(result);
       if (result.contains('<SuccessCode>9999</SuccessCode>')) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        // ✅ Check and extract <UniqueNumber> if present
+        if (result.contains('<UniqueID>')) {
+          final uniqueIdMatch = RegExp(
+            r'<UniqueID>(.*?)</UniqueID>',
+          ).firstMatch(result);
+          if (uniqueIdMatch != null) {
+            final uniqueId = uniqueIdMatch.group(1)?.trim();
+            if (uniqueId != null) {
+              await prefs.setString('unique_id', uniqueId);
+              print('Stored Unique ID: $uniqueId');
+            }
+          }
+        }
         return 'OTP Sent Successfully';
       } else {
         try {

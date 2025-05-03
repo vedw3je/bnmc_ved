@@ -1,8 +1,11 @@
+import 'package:bncmc/bhiwandi_corporation/bhiwandi_corporation.dart';
+import 'package:bncmc/customrouteanimation/fade_slide_route.dart';
 import 'package:bncmc/home/widgets/appbar.dart';
 import 'package:bncmc/home/widgets/drawer.dart';
 import 'package:bncmc/home/widgets/homecards.dart';
 import 'package:bncmc/register/model/user_details.dart';
 import 'package:bncmc/repository/user_details_repository.dart';
+import 'package:bncmc/webview/webview_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -66,11 +69,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     Expanded(
                       child: CardItem(
                         imagePath:
-                            'assets/drawable/m_msg_new.png', // Path to image
-                        label: 'Mayor Message',
+                            'assets/drawable/bhiwandimc.png', // Path to image
+                        label: 'About BNCMC',
                         onTap: () {
-                          // Handle onTap action
-                          print('Mayor Message clicked');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => WebViewScreen(
+                                    url:
+                                        "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/Transaction/FrmAboutMsg.aspx",
+                                    email: userDetails!.email,
+                                    phoneNumber: userDetails!.mobileNo,
+                                    method: "POST",
+                                  ),
+                            ),
+                          );
                         },
                       ),
                     ),
@@ -79,11 +93,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     Expanded(
                       child: CardItem(
                         imagePath:
-                            'assets/drawable/commissioner.png', // Path to image
-                        label: 'Commissioner Message',
+                            'assets/drawable/bncmclogo.png', // Path to image
+                        label: 'Bhiwandi Corporation',
                         onTap: () {
-                          // Handle onTap action
-                          print('Commissioner Message clicked');
+                          Navigator.of(context).push(
+                            FadeSlideRoute(
+                              page: BhiwandiCorporationScreen(
+                                userDetails: userDetails,
+                              ),
+                            ),
+                          );
                         },
                       ),
                     ),
@@ -131,10 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         imagePath:
                             'assets/drawable/ic_update.png', // Path to image
                         label: 'Update Profile',
-                        onTap: () {
-                          // Handle onTap action
-                          print('FAQs clicked');
-                        },
+                        onTap: () {},
                       ),
                     ),
                     SizedBox(width: 16), // Spacer between cards
@@ -145,8 +161,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             'assets/drawable/gvt_scheme_image.png', // Path to image
                         label: 'Scheme',
                         onTap: () {
-                          // Handle onTap action
-                          print('Notifications clicked');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => WebViewScreen(
+                                    url:
+                                        "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/Transaction/FrmSchemeList.aspx",
+                                    email: userDetails!.email,
+                                    phoneNumber: userDetails!.mobileNo,
+                                    method: "POST",
+                                  ),
+                            ),
+                          );
                         },
                       ),
                     ),

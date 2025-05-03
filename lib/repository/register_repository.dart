@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterRepository {
   final String baseUrl = "http://bhiwandicorporation.in/Service.svc";
@@ -46,6 +47,17 @@ class RegisterRepository {
       log(result);
 
       if (result.contains('<SuccessCode>9999</SuccessCode>')) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        // ✅ Check and extract <UniqueNumber> if present
+        if (result.contains('<UniqueID>')) {
+          final start = result.indexOf('<UniqueId>') + '<UniqueID>'.length;
+          final end = result.indexOf('</UniqueID>');
+          final uniqueID = result.substring(start, end);
+
+          await prefs.setString('unique_id', uniqueID);
+          print('Unique ID: $uniqueID');
+        }
         return 'OTP Sent Successfully';
       } else {
         try {
