@@ -28,7 +28,7 @@ class _BhiwandiCorporationScreenState extends State<BhiwandiCorporationScreen> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBarProfile(),
+        appBar: AppBarProfile(userDetails: widget.userDetails),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),

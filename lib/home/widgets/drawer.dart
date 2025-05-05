@@ -1,17 +1,15 @@
 import 'package:bncmc/bnmc_map/bnmc_map.dart';
+import 'package:bncmc/customrouteanimation/fade_slide_route.dart';
 import 'package:bncmc/register/model/user_details.dart';
+import 'package:bncmc/update_profile/update_profile_screen.dart';
 import 'package:bncmc/webview/webview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BNMCDrawer extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
-  final UserDetails? userDetails;
-  const BNMCDrawer({
-    super.key,
-    required this.scaffoldKey,
-    required this.userDetails,
-  });
+  UserDetails? userDetails;
+  BNMCDrawer({super.key, required this.scaffoldKey, required this.userDetails});
 
   @override
   State<BNMCDrawer> createState() => _BNMCDrawerState();
@@ -115,7 +113,22 @@ class _BNMCDrawerState extends State<BNMCDrawer> {
             index: 2,
             icon: Icons.receipt_long,
             title: 'View Bill',
-            onTap: () => _onItemTap(2, () {}),
+            onTap:
+                () => _onItemTap(2, () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) => WebViewScreen(
+                            url:
+                                "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/ViewBill.aspx",
+                            email: widget.userDetails!.email,
+                            phoneNumber: widget.userDetails!.mobileNo,
+                            method: "POST",
+                          ),
+                    ),
+                  );
+                }),
           ),
           _buildDrawerItem(
             index: 3,
@@ -133,7 +146,22 @@ class _BNMCDrawerState extends State<BNMCDrawer> {
             index: 5,
             icon: Icons.person,
             title: 'Update Profile',
-            onTap: () => _onItemTap(5, () {}),
+            onTap:
+                () => _onItemTap(5, () {
+                  Navigator.of(context).push(
+                    FadeSlideRoute(
+                      page: UpdateProfileScreen(
+                        onUserDetailsUpdated: (updatedDetails) {
+                          setState(() {
+                            widget.userDetails = updatedDetails;
+                          });
+                          print("Updated details: ${updatedDetails.firstName}");
+                        },
+                        userDetails: widget.userDetails!,
+                      ),
+                    ),
+                  );
+                }),
           ),
           _buildDrawerItem(
             index: 6,

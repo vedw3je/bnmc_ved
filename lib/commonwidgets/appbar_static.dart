@@ -11,6 +11,7 @@ class AppBarStatic extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
+      foregroundColor: Colors.white,
       backgroundColor: Colors.deepPurple[700],
       title: Row(
         mainAxisSize: MainAxisSize.min, // Prevent extra space

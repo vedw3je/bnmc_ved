@@ -1,10 +1,12 @@
 import 'package:bncmc/bhiwandi_corporation/bhiwandi_corporation.dart';
+import 'package:bncmc/bills/screens/bills_screen.dart';
 import 'package:bncmc/customrouteanimation/fade_slide_route.dart';
 import 'package:bncmc/home/widgets/appbar.dart';
 import 'package:bncmc/home/widgets/drawer.dart';
 import 'package:bncmc/home/widgets/homecards.dart';
 import 'package:bncmc/register/model/user_details.dart';
 import 'package:bncmc/repository/user_details_repository.dart';
+import 'package:bncmc/update_profile/update_profile_screen.dart';
 import 'package:bncmc/webview/webview_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +57,10 @@ class _HomeScreenState extends State<HomeScreen> {
         drawer: BNMCDrawer(scaffoldKey: _scaffoldKey, userDetails: userDetails),
         backgroundColor:
             Colors.transparent, // Make scaffold background transparent
-        appBar: CustomAppBar(scaffoldKey: _scaffoldKey),
+        appBar: CustomAppBar(
+          scaffoldKey: _scaffoldKey,
+          userDetails: userDetails,
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -120,8 +125,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             'assets/drawable/ic_paybill.png', // Path to image
                         label: 'Bills',
                         onTap: () {
-                          // Handle onTap action
-                          print('Bills clicked');
+                          Navigator.of(context).push(
+                            FadeSlideRoute(
+                              page: BillsScreen(userDetails: userDetails),
+                            ),
+                          );
                         },
                       ),
                     ),
@@ -150,7 +158,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         imagePath:
                             'assets/drawable/ic_update.png', // Path to image
                         label: 'Update Profile',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(
+                            FadeSlideRoute(
+                              page: UpdateProfileScreen(
+                                onUserDetailsUpdated: (updatedDetails) {
+                                  setState(() {
+                                    userDetails = updatedDetails;
+                                  });
+                                  print(
+                                    "Updated details: ${updatedDetails.firstName}",
+                                  );
+                                },
+                                userDetails: userDetails!,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                     SizedBox(width: 16), // Spacer between cards

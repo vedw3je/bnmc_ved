@@ -1,12 +1,12 @@
 import 'package:xml/xml.dart';
 
 class UserDetails {
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String mobileNo;
-  final String adharNo;
-  final String bloodGroup;
+  String firstName;
+  String lastName;
+  String email;
+  String mobileNo;
+  String adharNo;
+  String bloodGroup;
 
   UserDetails({
     required this.firstName,

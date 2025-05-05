@@ -1,10 +1,14 @@
+import 'package:bncmc/customrouteanimation/fade_slide_route.dart';
+import 'package:bncmc/register/model/user_details.dart';
+import 'package:bncmc/update_profile/update_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppBarProfile extends StatefulWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
+  UserDetails? userDetails;
 
-  const AppBarProfile({super.key})
+  AppBarProfile({super.key, required this.userDetails})
     : preferredSize = const Size.fromHeight(kToolbarHeight);
 
   @override
@@ -40,20 +44,18 @@ class _AppBarProfileState extends State<AppBarProfile> {
         IconButton(
           icon: const Icon(Icons.person, color: Colors.white),
           onPressed: () {
-            // Add your profile button action here
-            showDialog(
-              context: context,
-              builder:
-                  (context) => AlertDialog(
-                    title: const Text('Profile'),
-                    content: const Text('Profile button tapped.'),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text('Close'),
-                      ),
-                    ],
-                  ),
+            Navigator.of(context).push(
+              FadeSlideRoute(
+                page: UpdateProfileScreen(
+                  onUserDetailsUpdated: (updatedDetails) {
+                    setState(() {
+                      widget.userDetails = updatedDetails;
+                    });
+                    print("Updated details: ${updatedDetails.firstName}");
+                  },
+                  userDetails: widget.userDetails!,
+                ),
+              ),
             );
           },
         ),

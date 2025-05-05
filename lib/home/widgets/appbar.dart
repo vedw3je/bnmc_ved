@@ -1,9 +1,17 @@
+import 'package:bncmc/customrouteanimation/fade_slide_route.dart';
+import 'package:bncmc/register/model/user_details.dart';
+import 'package:bncmc/update_profile/update_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+  UserDetails? userDetails;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  const CustomAppBar({super.key, required this.scaffoldKey});
+  CustomAppBar({
+    super.key,
+    required this.scaffoldKey,
+    required this.userDetails,
+  });
 
   @override
   State<CustomAppBar> createState() => _CustomAppBarState();
@@ -16,6 +24,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      foregroundColor: Colors.white,
       centerTitle: true,
       backgroundColor: Colors.deepPurple[700],
       leading: IconButton(
@@ -47,9 +56,19 @@ class _CustomAppBarState extends State<CustomAppBar> {
         IconButton(
           icon: const Icon(Icons.person, color: Colors.white),
           onPressed: () {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(const SnackBar(content: Text("Profile tapped")));
+            Navigator.of(context).push(
+              FadeSlideRoute(
+                page: UpdateProfileScreen(
+                  onUserDetailsUpdated: (updatedDetails) {
+                    setState(() {
+                      widget.userDetails = updatedDetails;
+                    });
+                    print("Updated details: ${updatedDetails.firstName}");
+                  },
+                  userDetails: widget.userDetails!,
+                ),
+              ),
+            );
           },
         ),
       ],
