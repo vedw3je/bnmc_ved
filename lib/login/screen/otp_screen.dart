@@ -1,3 +1,4 @@
+import 'package:bncmc/commonwidgets/gradient_container.dart';
 import 'package:bncmc/home/homescreen.dart';
 import 'package:bncmc/login/bloc/login_cubit.dart';
 import 'package:flutter/material.dart';
@@ -64,31 +65,7 @@ class OtpScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.deepPurple[100]!,
-                      Colors.deepPurple[400]!,
-                      Colors.deepPurple[700]!,
-                    ],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                padding: const EdgeInsets.all(12.0),
-                child: const Text(
-                  'Enter OTP',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              GradientContainer(text: 'Enter OTP'),
               const SizedBox(height: 20.0),
               const Text(
                 'OTP',

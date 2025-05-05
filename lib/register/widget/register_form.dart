@@ -1,3 +1,4 @@
+import 'package:bncmc/commonwidgets/gradient_container.dart';
 import 'package:bncmc/home/homescreen.dart';
 import 'package:bncmc/login/bloc/login_cubit.dart';
 import 'package:bncmc/login/screen/already_registered.dart';
@@ -96,31 +97,7 @@ class _RegisterFormState extends State<RegisterForm> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.deepPurple[100]!, // Light purple
-                      Colors.deepPurple[400]!, // Medium purple
-                      Colors.deepPurple[700]!, // Dark purple
-                    ],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                padding: EdgeInsets.all(12.0),
-                child: Text(
-                  'Already Registered',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              GradientContainer(text: 'Register Here'),
               Expanded(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(16),

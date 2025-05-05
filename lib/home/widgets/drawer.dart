@@ -1,3 +1,4 @@
+import 'package:bncmc/bills/screens/pay_bill_screen.dart';
 import 'package:bncmc/bnmc_map/bnmc_map.dart';
 import 'package:bncmc/customrouteanimation/fade_slide_route.dart';
 import 'package:bncmc/register/model/user_details.dart';
@@ -134,13 +135,35 @@ class _BNMCDrawerState extends State<BNMCDrawer> {
             index: 3,
             icon: Icons.payment,
             title: 'Pay Bill',
-            onTap: () => _onItemTap(3, () {}),
+            onTap:
+                () => _onItemTap(3, () {
+                  Navigator.of(context).push(
+                    FadeSlideRoute(
+                      page: PayBillScreen(userDetails: widget.userDetails),
+                    ),
+                  );
+                }),
           ),
           _buildDrawerItem(
             index: 4,
             icon: Icons.download,
             title: 'Download Receipt',
-            onTap: () => _onItemTap(4, () {}),
+            onTap:
+                () => _onItemTap(4, () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) => WebViewScreen(
+                            url:
+                                "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/RecDownload.aspx",
+                            email: widget.userDetails!.email,
+                            phoneNumber: widget.userDetails!.mobileNo,
+                            method: "POST",
+                          ),
+                    ),
+                  );
+                }),
           ),
           _buildDrawerItem(
             index: 5,
