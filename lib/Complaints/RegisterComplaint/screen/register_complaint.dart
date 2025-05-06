@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bncmc/Complaints/RegisterComplaint/models/complaint_subtype.dart';
 import 'package:bncmc/Complaints/RegisterComplaint/models/complaint_type.dart';
 import 'package:bncmc/Complaints/RegisterComplaint/models/department.dart';
@@ -62,6 +64,14 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
   }
 
   final _formKey = GlobalKey<FormState>();
+  File? _pickedImage; // Store the picked image
+
+  // Handle image picked from ImagePickerWidget
+  void _onImagePicked(File image) {
+    setState(() {
+      _pickedImage = image;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -209,6 +219,29 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
                     return null;
                   },
                 ),
+                const SizedBox(height: 5),
+                _pickedImage != null
+                    ? Center(
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Image.file(_pickedImage!, fit: BoxFit.cover),
+                      ),
+                    )
+                    : Center(
+                      child: Image.asset(
+                        'assets/drawable/amrut.png',
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+
+                const SizedBox(height: 20),
                 // Add your complaint details fields here
                 const SizedBox(height: 20),
 
@@ -222,8 +255,9 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
                         showDialog(
                           context: context,
                           builder:
-                              (context) =>
-                                  ImagePickerWidget(), // Assuming ImagePickerWidget is the widget you've created
+                              (context) => ImagePickerWidget(
+                                onImagePicked: _onImagePicked,
+                              ), // Assuming ImagePickerWidget is the widget you've created
                         );
                       },
                     ),

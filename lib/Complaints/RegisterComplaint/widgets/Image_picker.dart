@@ -3,7 +3,10 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class ImagePickerWidget extends StatefulWidget {
-  const ImagePickerWidget({Key? key}) : super(key: key);
+  final ValueChanged<File>
+  onImagePicked; // Callback to send the picked image back to the parent
+
+  const ImagePickerWidget({super.key, required this.onImagePicked});
 
   @override
   _ImagePickerWidgetState createState() => _ImagePickerWidgetState();
@@ -23,6 +26,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
         return AlertDialog(
           title: const Text("Choose image source"),
           actions: [
+            // Option for Camera
             TextButton(
               onPressed: () async {
                 final pickedFile = await picker.pickImage(
@@ -33,11 +37,15 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                   setState(() {
                     _image = File(pickedFile.path);
                   });
+                  widget.onImagePicked(
+                    _image!,
+                  ); // Notify parent widget with selected image
                 }
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(); // Close the dialog
               },
               child: const Text("Camera"),
             ),
+            // Option for Gallery
             TextButton(
               onPressed: () async {
                 final pickedFile = await picker.pickImage(
@@ -48,8 +56,11 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                   setState(() {
                     _image = File(pickedFile.path);
                   });
+                  widget.onImagePicked(
+                    _image!,
+                  ); // Notify parent widget with selected image
                 }
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(); // Close the dialog
               },
               child: const Text("Gallery"),
             ),
@@ -63,7 +74,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Photo display box (100x100)
+        // Display the selected image or default icon
         _image != null
             ? Container(
               width: 100,
@@ -85,13 +96,18 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
             ),
         const SizedBox(height: 10),
 
-        // Button to take a photo or select from gallery
+        // Button to open the image picker
         ElevatedButton(
           onPressed: _pickImage,
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.green, // Green color for Take Photo
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.green, // Green color for Take Photo
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           ),
-          child: const Text('Take Photo or Select from Gallery'),
+          child: const Text(
+            'Take Photo or Select from Gallery',
+            style: TextStyle(fontSize: 16),
+          ),
         ),
       ],
     );
