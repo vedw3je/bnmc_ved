@@ -1,3 +1,4 @@
+import 'package:bncmc/Complaints/screens/complaints_screen.dart';
 import 'package:bncmc/bhiwandi_corporation/bhiwandi_corporation.dart';
 import 'package:bncmc/bills/screens/bills_screen.dart';
 import 'package:bncmc/customrouteanimation/fade_slide_route.dart';
@@ -141,8 +142,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             'assets/drawable/feedback.png', // Path to image
                         label: 'Complaints',
                         onTap: () {
-                          // Handle onTap action
-                          print('Complaints clicked');
+                          Navigator.of(context).push(
+                            FadeSlideRoute(
+                              page: ComplaintsScreen(userDetails: userDetails),
+                            ),
+                          );
                         },
                       ),
                     ),
