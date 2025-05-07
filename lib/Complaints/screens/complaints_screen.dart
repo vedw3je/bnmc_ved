@@ -46,9 +46,13 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                             'assets/drawable/crmnew.png', // Path to image
                         label: 'Register Your Complaint',
                         onTap: () {
-                          Navigator.of(
-                            context,
-                          ).push(FadeSlideRoute(page: ComplaintFormScreen()));
+                          Navigator.of(context).push(
+                            FadeSlideRoute(
+                              page: ComplaintFormScreen(
+                                userDetails: widget.userDetails!,
+                              ),
+                            ),
+                          );
                         },
                       ),
                     ),

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bncmc/Complaints/RegisterComplaint/models/complaint_subtype.dart';
@@ -8,15 +9,19 @@ import 'package:bncmc/Complaints/RegisterComplaint/repository/complaint_subtype_
 import 'package:bncmc/Complaints/RegisterComplaint/repository/complaint_type_repo.dart';
 import 'package:bncmc/Complaints/RegisterComplaint/repository/department_repo.dart';
 import 'package:bncmc/Complaints/RegisterComplaint/repository/prabhag_repo.dart';
+import 'package:bncmc/Complaints/RegisterComplaint/repository/submit_complaint_repo.dart';
 import 'package:bncmc/Complaints/RegisterComplaint/widgets/Image_picker.dart';
 import 'package:bncmc/Complaints/RegisterComplaint/widgets/custom_button.dart';
 import 'package:bncmc/Complaints/RegisterComplaint/widgets/custom_dropdown.dart';
+import 'package:bncmc/Complaints/RegisterComplaint/widgets/register_dialog.dart';
 import 'package:bncmc/commonwidgets/appbar_static.dart';
 import 'package:bncmc/commonwidgets/gradient_container.dart';
+import 'package:bncmc/register/model/user_details.dart';
 import 'package:flutter/material.dart';
 
 class ComplaintFormScreen extends StatefulWidget {
-  const ComplaintFormScreen({super.key});
+  final UserDetails userDetails;
+  const ComplaintFormScreen({super.key, required this.userDetails});
 
   @override
   State<ComplaintFormScreen> createState() => _ComplaintFormScreenState();
@@ -24,11 +29,13 @@ class ComplaintFormScreen extends StatefulWidget {
 
 class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
   bool isOnsite = true;
-
+  bool isLoading = false;
   String? selectedPrabhag;
   String? selectedDepartmentId; // Change to store department ID
   String? selectedComplaintType;
   String? selectedSubType;
+  TextEditingController complaintdetailscontroller = TextEditingController();
+  TextEditingController landmarkcontroller = TextEditingController();
 
   late Future<List<Prabhag>> prabhagList;
   late Future<List<Department>> departmentList;
@@ -71,6 +78,69 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
     setState(() {
       _pickedImage = image;
     });
+  }
+
+  void _submitComplaint() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      String base64Image = "";
+      if (_pickedImage != null) {
+        final bytes = await _pickedImage!.readAsBytes();
+        base64Image = base64Encode(bytes);
+      }
+
+      bool isSuccess = await RegisterComplaintRepository().submitComplaint(
+        departmentId: selectedDepartmentId.toString(),
+        complaintTypeId: selectedComplaintType.toString(),
+        complaintSubTypeId: selectedSubType.toString(),
+        customerName:
+            '${widget.userDetails.firstName} ${widget.userDetails.lastName}',
+        mobileNo: widget.userDetails.mobileNo,
+        complaint: complaintdetailscontroller.text,
+        imageBase64: base64Image,
+        email: widget.userDetails.email,
+        landmark: landmarkcontroller.text,
+        prabhagId: selectedPrabhag.toString(),
+        complaintPlace: isOnsite ? "ONSITE" : "OFFSITE",
+      );
+
+      if (isSuccess) {
+        // Clear the form fields after success
+        complaintdetailscontroller.clear();
+        landmarkcontroller.clear();
+        setState(() {
+          selectedDepartmentId = null;
+          selectedComplaintType = null;
+          selectedSubType = null;
+          selectedPrabhag = null;
+          _pickedImage = null;
+          isOnsite = false;
+        });
+
+        showDialog(context: context, builder: (context) => RegisterDialog());
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Failed to submit complaint.")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Error: ${e.toString()}")));
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    complaintdetailscontroller.dispose();
+    super.dispose();
   }
 
   @override
@@ -125,9 +195,9 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
                   validator:
                       (value) =>
                           value == null ? 'Please select a Prabhag' : null,
-                  onChanged: (value) {
+                  onChanged: (id) {
                     setState(() {
-                      selectedPrabhag = value;
+                      selectedPrabhag = id;
                     });
                   },
                 ),
@@ -191,6 +261,7 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
                 const SizedBox(height: 10),
                 // Complaint Details TextField
                 TextFormField(
+                  controller: complaintdetailscontroller,
                   maxLength: 1000,
                   maxLines: 5,
                   decoration: const InputDecoration(
@@ -207,6 +278,7 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
+                  controller: landmarkcontroller,
                   decoration: const InputDecoration(
                     labelText: 'LandMark',
                     hintText: 'Enter your Land Mark here.',
@@ -233,11 +305,14 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
                       ),
                     )
                     : Center(
-                      child: Image.asset(
-                        'assets/drawable/amrut.png',
+                      child: Container(
                         width: 100,
                         height: 100,
-                        fit: BoxFit.cover,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Icon(Icons.image, size: 50),
                       ),
                     ),
 
@@ -266,18 +341,22 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
                     CustomButton(
                       text: 'Submit Complaint',
                       color: Colors.red, // Red button
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // All fields are valid
-                          // submitComplaint(); // Your submit logic here
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Please fill all required fields'),
-                            ),
-                          );
-                        }
-                      },
+                      onPressed:
+                          isLoading
+                              ? () {}
+                              : () {
+                                if (_formKey.currentState!.validate()) {
+                                  _submitComplaint();
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Please fill all required fields',
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
                     ),
                   ],
                 ),
