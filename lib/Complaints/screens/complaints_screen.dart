@@ -1,5 +1,6 @@
 import 'package:bncmc/Complaints/RegisterComplaint/screen/register_complaint.dart';
 import 'package:bncmc/Complaints/RegisterComplaint/screen/register_complaint_screen.dart';
+import 'package:bncmc/Complaints/TrackMyComplaint/screen/track_my_complaint.dart';
 import 'package:bncmc/bills/screens/pay_bill_screen.dart';
 import 'package:bncmc/commonwidgets/appbar_profile.dart';
 import 'package:bncmc/customrouteanimation/fade_slide_route.dart';
@@ -63,7 +64,15 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                         imagePath:
                             'assets/drawable/track_complaint.png', // Path to image
                         label: 'Track My Complaint',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(
+                            FadeSlideRoute(
+                              page: TrackMyComplaint(
+                                phoneNumber: widget.userDetails!.mobileNo,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],
