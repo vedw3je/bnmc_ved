@@ -1,3 +1,4 @@
+import 'package:bncmc/Complaints/Feedback/screens/feedback_screen.dart';
 import 'package:bncmc/Complaints/RegisterComplaint/screen/register_complaint.dart';
 import 'package:bncmc/Complaints/RegisterComplaint/screen/register_complaint_screen.dart';
 import 'package:bncmc/Complaints/TrackMyComplaint/screen/track_my_complaint.dart';
@@ -88,7 +89,15 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                         imagePath:
                             'assets/drawable/feedback.png', // Path to image
                         label: 'CRM Feedback',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(
+                            FadeSlideRoute(
+                              page: FeedbackScreen(
+                                userDetails: widget.userDetails!,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(width: 16), // Space between cards
