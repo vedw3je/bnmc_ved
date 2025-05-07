@@ -85,8 +85,31 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> resendOtp(String contactNumber) async {
     if (!isClosed) emit(LoginLoading());
     try {
-      await Future.delayed(Duration(seconds: 2));
-      if (!isClosed) emit(otpSent(contactNumber));
+      final userDetails = await userDetailsRepository.getUserDetails(
+        contactNumber,
+      );
+
+      if (userDetails == null) {
+        if (!isClosed)
+          emit(otpError('Invalid contact number or user not found.'));
+        return;
+      }
+
+      final otpResponse = await loginrepository.sendOtpForRegisteredUser(
+        userDetails,
+      );
+      //print(otpResponse);
+
+      if (otpResponse == null) {
+        if (!isClosed) emit(otpError('Failed to send OTP.'));
+        return;
+      }
+
+      if (otpResponse == 'OTP Sent Successfully') {
+        if (!isClosed) emit(otpSent(contactNumber));
+      } else {
+        if (!isClosed) emit(otpError('OTP sending failed.'));
+      }
     } catch (error) {
       if (!isClosed) emit(otpError(error.toString()));
     }

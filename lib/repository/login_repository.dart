@@ -157,6 +157,8 @@ class LoginRepository {
             final uniqueId = uniqueIdMatch.group(1)?.trim();
             if (uniqueId != null) {
               await prefs.setString('unique_id', uniqueId);
+              await prefs.setString('mobile_no', user.mobileNo);
+              await prefs.setBool('is_loggedin', true);
               print('Stored Unique ID: $uniqueId');
             }
           }

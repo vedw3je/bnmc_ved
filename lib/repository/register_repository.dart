@@ -56,6 +56,8 @@ class RegisterRepository {
           final uniqueID = result.substring(start, end);
 
           await prefs.setString('unique_id', uniqueID);
+          await prefs.setString('mobile_no', mobileNo);
+          await prefs.setBool('is_loggedin', true);
           print('Unique ID: $uniqueID');
         }
         return 'OTP Sent Successfully';

@@ -85,6 +85,10 @@ class OtpScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.deepPurple,
+                        foregroundColor: Colors.white,
+                      ),
                       onPressed: () {
                         final otp = otpController.text.trim();
                         if (otp.isNotEmpty) {
@@ -102,17 +106,18 @@ class OtpScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12.0),
-                  // Expanded(
-                  //   child: ElevatedButton(
-                  //     onPressed: () {
-                  //       context.read<LoginCubit>().resendOtp(contactNumber);
-                  //     },
-                  //     style: ElevatedButton.styleFrom(
-                  //       backgroundColor: Colors.grey[700],
-                  //     ),
-                  //     child: const Text('Resend OTP'),
-                  //   ),
-                  // ),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        context.read<LoginCubit>().resendOtp(contactNumber);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                      ),
+                      child: const Text('Resend OTP'),
+                    ),
+                  ),
                 ],
               ),
             ],

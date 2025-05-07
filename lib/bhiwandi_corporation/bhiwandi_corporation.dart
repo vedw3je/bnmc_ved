@@ -1,5 +1,6 @@
 import 'package:bncmc/bnmc_map/bnmc_map.dart';
 import 'package:bncmc/commonwidgets/appbar_profile.dart';
+import 'package:bncmc/customrouteanimation/fade_slide_route.dart';
 import 'package:bncmc/home/widgets/homecards.dart';
 import 'package:bncmc/register/model/user_details.dart';
 import 'package:bncmc/webview/webview_screen.dart';
@@ -166,7 +167,19 @@ class _BhiwandiCorporationScreenState extends State<BhiwandiCorporationScreen> {
                       child: CardItem(
                         imagePath: 'assets/drawable/rts.png', // Path to image
                         label: 'RTS',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(
+                            FadeSlideRoute(
+                              page: WebViewScreen(
+                                url:
+                                    'https://nagarkaryavali.com/ANCL_RTS/App/FrmDeptServices.aspx?@=3AF849AFBCC50DDCEE31E613263F0BCC',
+                                phoneNumber: widget.userDetails!.mobileNo,
+                                email: widget.userDetails!.email,
+                                method: "GET",
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],

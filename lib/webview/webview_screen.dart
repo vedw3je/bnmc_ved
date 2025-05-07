@@ -85,7 +85,10 @@ class _WebViewScreenState extends State<WebViewScreen> {
       }
     } else {
       // For GET requests, simply load the URL
-      await controller.loadRequest(Uri.parse(widget.url));
+      await controller.loadRequest(
+        Uri.parse(widget.url),
+        method: LoadRequestMethod.get,
+      );
     }
 
     setState(() {
