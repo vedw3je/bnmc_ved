@@ -34,8 +34,9 @@ class LoginCubit extends Cubit<LoginState> {
       );
 
       if (userDetails == null) {
-        if (!isClosed)
+        if (!isClosed) {
           emit(otpError('Invalid contact number or user not found.'));
+        }
         return;
       }
 
@@ -90,8 +91,9 @@ class LoginCubit extends Cubit<LoginState> {
       );
 
       if (userDetails == null) {
-        if (!isClosed)
+        if (!isClosed) {
           emit(otpError('Invalid contact number or user not found.'));
+        }
         return;
       }
 

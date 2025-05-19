@@ -2,7 +2,6 @@ import 'package:bncmc/Complaints/TrackMyComplaint/model/complaint_details.dart';
 import 'package:bncmc/Complaints/TrackMyComplaint/repository/complaint_details_repo.dart';
 import 'package:bncmc/Complaints/TrackMyComplaint/widgets/gradient_complaint_container.dart';
 import 'package:bncmc/commonwidgets/appbar_static.dart';
-import 'package:bncmc/commonwidgets/gradient_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // For setting the orientation
 

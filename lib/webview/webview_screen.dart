@@ -14,13 +14,13 @@ class WebViewScreen extends StatefulWidget {
   final Map<String, String>? headers;
 
   const WebViewScreen({
-    Key? key,
+    super.key,
     required this.url,
     required this.phoneNumber,
     required this.email,
     this.method = 'POST',
     this.headers,
-  }) : super(key: key);
+  });
 
   @override
   State<WebViewScreen> createState() => _WebViewScreenState();

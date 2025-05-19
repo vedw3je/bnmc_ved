@@ -9,8 +9,8 @@ class KenBurnsSplash extends StatefulWidget {
     required this.image,
     required this.logo,
     this.duration = const Duration(seconds: 5),
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _KenBurnsSplashState createState() => _KenBurnsSplashState();

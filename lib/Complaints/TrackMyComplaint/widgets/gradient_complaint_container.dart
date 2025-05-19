@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class GradientComplaintContainer extends StatelessWidget {
   final String complaintNumber;
 
-  const GradientComplaintContainer({Key? key, required this.complaintNumber})
-    : super(key: key);
+  const GradientComplaintContainer({super.key, required this.complaintNumber});
 
   @override
   Widget build(BuildContext context) {

@@ -21,18 +21,18 @@ class UserDetails {
     final document = XmlDocument.parse(xmlString);
     final header = document.findAllElements('ResponseHeader').first;
 
-    String _get(String tag) =>
+    String get(String tag) =>
         header.findElements(tag).isNotEmpty
             ? header.findElements(tag).first.text
             : '';
 
     return UserDetails(
-      firstName: _get('FirstName'),
-      lastName: _get('LastName'),
-      email: _get('Email'),
-      mobileNo: _get('Mobile'),
-      adharNo: _get('Adhar'),
-      bloodGroup: _get('BloodGroup'),
+      firstName: get('FirstName'),
+      lastName: get('LastName'),
+      email: get('Email'),
+      mobileNo: get('Mobile'),
+      adharNo: get('Adhar'),
+      bloodGroup: get('BloodGroup'),
     );
   }
 }

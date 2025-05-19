@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class GradientContainer extends StatelessWidget {
   final String text;
 
-  const GradientContainer({Key? key, required this.text}) : super(key: key);
+  const GradientContainer({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

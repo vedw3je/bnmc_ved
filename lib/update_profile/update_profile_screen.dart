@@ -11,7 +11,7 @@ class UpdateProfileScreen extends StatefulWidget {
   final UserDetails userDetails;
   final Function(UserDetails) onUserDetailsUpdated;
 
-  UpdateProfileScreen({
+  const UpdateProfileScreen({
     super.key,
     required this.userDetails,
     required this.onUserDetailsUpdated,

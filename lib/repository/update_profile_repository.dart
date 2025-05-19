@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:html_unescape/html_unescape.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
 

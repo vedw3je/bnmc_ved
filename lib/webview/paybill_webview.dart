@@ -14,13 +14,13 @@ class PayBillWebView extends StatefulWidget {
   final Map<String, String>? headers;
 
   const PayBillWebView({
-    Key? key,
+    super.key,
     required this.url,
     required this.phoneNumber,
     required this.email,
     required this.propertyNumber,
     this.headers,
-  }) : super(key: key);
+  });
 
   @override
   State<PayBillWebView> createState() => _PayBillWebViewState();

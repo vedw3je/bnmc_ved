@@ -3,11 +3,11 @@ import 'package:bncmc/commonwidgets/gradient_container.dart';
 import 'package:flutter/material.dart';
 
 class BnmcMapScreen extends StatelessWidget {
-  const BnmcMapScreen({Key? key}) : super(key: key);
+  const BnmcMapScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TransformationController _controller = TransformationController();
+    TransformationController controller = TransformationController();
     return Scaffold(
       appBar: AppBarStatic(), // Using the static AppBar
       body: Column(
@@ -29,7 +29,7 @@ class BnmcMapScreen extends StatelessWidget {
                 final dy = details.localPosition.dy / size.height;
 
                 // Set the transformation matrix to zoom and center at the double-tap position
-                _controller.value =
+                controller.value =
                     Matrix4.identity()
                       ..scale(scaleFactor)
                       ..translate(
@@ -40,7 +40,7 @@ class BnmcMapScreen extends StatelessWidget {
               child: InteractiveViewer(
                 panEnabled: true, // Allow pan
                 scaleEnabled: true, // Allow zoom
-                transformationController: _controller,
+                transformationController: controller,
                 child: Image.asset(
                   'assets/drawable/newbhiw.jpg',
                   fit: BoxFit.contain,

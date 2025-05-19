@@ -10,7 +10,7 @@
 
     <application
         android:usesCleartextTraffic="true"
-        android:label="bncmc"
+        android:label="Bhiwandi mSeva"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

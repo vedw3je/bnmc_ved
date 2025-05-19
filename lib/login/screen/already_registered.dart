@@ -1,10 +1,9 @@
 import 'package:bncmc/commonwidgets/gradient_container.dart';
-import 'package:bncmc/home/homescreen.dart';
 import 'package:bncmc/login/bloc/login_cubit.dart';
 import 'package:bncmc/login/screen/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bncmc/login/bloc/login_cubit.dart'; // Import your LoginCubit
+// Import your LoginCubit
 
 class AlreadyRegisteredScreen extends StatelessWidget {
   const AlreadyRegisteredScreen({super.key});

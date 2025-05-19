@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
-import 'package:xml/xml.dart';
 
 class RegisterComplaintRepository {
   final String baseUrl = "http://bhiwandicorporation.in/Service.svc";
