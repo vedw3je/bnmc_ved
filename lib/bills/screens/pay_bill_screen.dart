@@ -1,7 +1,7 @@
 import 'package:bncmc/commonwidgets/appbar_static.dart';
 import 'package:bncmc/commonwidgets/gradient_container.dart';
 import 'package:bncmc/register/model/user_details.dart';
-import 'package:bncmc/webview/paybill_webview.dart';
+import 'package:bncmc/webview/paybill_inapp_webview.dart';
 import 'package:flutter/material.dart';
 
 class PayBillScreen extends StatefulWidget {
@@ -25,16 +25,30 @@ class _PayBillScreenState extends State<PayBillScreen> {
 
   void _searchProperty() {
     if (_formKey.currentState!.validate()) {
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder:
+      //         (context) => PayBillWebView(
+      //           url:
+      //               'http://propertytax.bhiwandicorporation.in/BNCMCPGApp/PayBill.aspx',
+      //           propertyNumber: _propertyNumberController.text,
+      //           phoneNumber: widget.userDetails!.mobileNo,
+      //           email: widget.userDetails!.email,
+      //         ),
+      //   ),
+      // );
+
       Navigator.push(
         context,
         MaterialPageRoute(
           builder:
-              (context) => PayBillWebView(
+              (context) => PayBillInAppWebView(
                 url:
-                    'http://propertytax.bhiwandicorporation.in/BNCMCPGApp/PayBill.aspx',
-                propertyNumber: _propertyNumberController.text,
+                    "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/PayBill.aspx",
                 phoneNumber: widget.userDetails!.mobileNo,
                 email: widget.userDetails!.email,
+                propertyNumber: _propertyNumberController.text,
               ),
         ),
       );

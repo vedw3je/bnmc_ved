@@ -3,6 +3,7 @@ import 'package:bncmc/commonwidgets/appbar_profile.dart';
 import 'package:bncmc/customrouteanimation/fade_slide_route.dart';
 import 'package:bncmc/home/widgets/homecards.dart';
 import 'package:bncmc/register/model/user_details.dart';
+import 'package:bncmc/webview/viewbill_receipt_webview.dart';
 import 'package:bncmc/webview/webview_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -49,12 +50,11 @@ class _BillsScreenState extends State<BillsScreen> {
                             context,
                             MaterialPageRoute(
                               builder:
-                                  (context) => WebViewScreen(
+                                  (context) => ViewBillInAppWebView(
                                     url:
                                         "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/ViewBill.aspx",
                                     email: widget.userDetails!.email,
-                                    phoneNumber: widget.userDetails!.mobileNo,
-                                    method: "POST",
+                                    mobileno: widget.userDetails!.mobileNo,
                                   ),
                             ),
                           );
@@ -97,12 +97,11 @@ class _BillsScreenState extends State<BillsScreen> {
                             context,
                             MaterialPageRoute(
                               builder:
-                                  (context) => WebViewScreen(
+                                  (context) => ViewBillInAppWebView(
                                     url:
                                         "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/RecDownload.aspx",
                                     email: widget.userDetails!.email,
-                                    phoneNumber: widget.userDetails!.mobileNo,
-                                    method: "POST",
+                                    mobileno: widget.userDetails!.mobileNo,
                                   ),
                             ),
                           );

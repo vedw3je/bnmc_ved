@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:developer';
+import 'dart:typed_data';
 import 'package:bncmc/commonwidgets/appbar_static.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
   final String url;
@@ -27,96 +26,86 @@ class WebViewScreen extends StatefulWidget {
 }
 
 class _WebViewScreenState extends State<WebViewScreen> {
-  WebViewController? _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _initWebView();
-  }
-
-  Future<void> _initWebView() async {
-    final prefs = await SharedPreferences.getInstance();
-    final uniqueId = prefs.getString('unique_id') ?? '';
-    final requestString = '$uniqueId~${widget.phoneNumber}~${widget.email}';
-    log(requestString);
-
-    // Initialize WebViewController
-    final controller =
-        WebViewController()
-          ..setJavaScriptMode(JavaScriptMode.unrestricted)
-          ..enableZoom(true)
-          ..setNavigationDelegate(
-            NavigationDelegate(
-              onPageStarted: (url) {
-                debugPrint('Page loading: $url');
-              },
-              onPageFinished: (url) {
-                debugPrint('Page loaded: $url');
-              },
-              onWebResourceError: (error) {
-                debugPrint('WebView error: ${error.description}');
-              },
-            ),
-          );
-
-    if (widget.method.toUpperCase() == 'POST') {
-      // Send POST request
-      final response = await http.post(
-        Uri.parse(widget.url),
-        headers:
-            widget.headers ??
-            {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: {'msg': requestString},
-      );
-
-      if (response.statusCode == 200) {
-        // Inject the response HTML into WebView
-
-        // Inject HTML content into WebView
-        final htmlContent = response.body;
-        controller.loadRequest(
-          Uri.parse(
-            'data:text/html;charset=utf-8,${Uri.encodeComponent(htmlContent)}',
-          ),
-        );
-      } else {
-        debugPrint('Failed to load page. Status Code: ${response.statusCode}');
-      }
-    } else {
-      // For GET requests, simply load the URL
-      await controller.loadRequest(
-        Uri.parse(widget.url),
-        method: LoadRequestMethod.get,
-      );
-    }
-
-    setState(() {
-      _controller = controller;
-    });
-  }
+  late InAppWebViewController _webViewController;
+  bool _isLoading = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarStatic(),
-      body:
-          _controller == null
-              ? const Center(child: CircularProgressIndicator())
-              : SafeArea(
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top:
-                          -70.0, // Adjust this value to start from a lower point
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: WebViewWidget(controller: _controller!),
+      body: FutureBuilder<URLRequest>(
+        future: _buildUrlRequest(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          return SafeArea(
+            child: Stack(
+              children: [
+                InAppWebView(
+                  initialUrlRequest: snapshot.data!,
+                  initialOptions: InAppWebViewGroupOptions(
+                    crossPlatform: InAppWebViewOptions(
+                      javaScriptEnabled: true,
+                      useOnDownloadStart: true,
+                      mediaPlaybackRequiresUserGesture: false,
                     ),
-                  ],
+                  ),
+                  onWebViewCreated: (controller) {
+                    _webViewController = controller;
+                  },
+                  onLoadStart: (controller, url) {
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    debugPrint("Loading: $url");
+                  },
+                  onLoadStop: (controller, url) {
+                    setState(() {
+                      _isLoading = false;
+                    });
+                    debugPrint("Loaded: $url");
+                  },
+                  onLoadError: (controller, url, code, message) {
+                    debugPrint("WebView error: $message");
+                  },
+                  onConsoleMessage: (controller, message) {
+                    debugPrint("Console: ${message.message}");
+                  },
                 ),
-              ),
+                if (_isLoading)
+                  const Center(child: CircularProgressIndicator()),
+              ],
+            ),
+          );
+        },
+      ),
     );
+  }
+
+  Future<URLRequest> _buildUrlRequest() async {
+    final prefs = await SharedPreferences.getInstance();
+    final uniqueId = prefs.getString('unique_id') ?? '';
+    final msg = '$uniqueId~${widget.phoneNumber}~${widget.email}';
+    final method = widget.method.toUpperCase();
+
+    if (method == 'POST') {
+      final postData = Uint8List.fromList(utf8.encode("msg=$msg"));
+      return URLRequest(
+        url: WebUri.uri(Uri.parse(widget.url)),
+        method: 'POST',
+        headers:
+            widget.headers ??
+            {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: postData,
+      );
+    } else {
+      return URLRequest(
+        url: WebUri.uri(Uri.parse(widget.url)),
+        method: 'GET',
+        headers: widget.headers,
+      );
+    }
   }
 }

@@ -216,9 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: CardItem(
                         imagePath: 'assets/drawable/amrut.png', // Path to image
                         label: 'Amrut Mahotsav',
-                        onTap: () {
-                          print('Single card clicked');
-                        },
+                        onTap: () {},
                       ),
                     ),
                     const SizedBox(width: 16), // Spacer between cards

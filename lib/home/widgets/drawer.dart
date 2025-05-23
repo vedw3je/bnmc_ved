@@ -3,6 +3,7 @@ import 'package:bncmc/bnmc_map/bnmc_map.dart';
 import 'package:bncmc/customrouteanimation/fade_slide_route.dart';
 import 'package:bncmc/register/model/user_details.dart';
 import 'package:bncmc/update_profile/update_profile_screen.dart';
+import 'package:bncmc/webview/viewbill_receipt_webview.dart';
 import 'package:bncmc/webview/webview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -120,12 +121,11 @@ class _BNMCDrawerState extends State<BNMCDrawer> {
                     context,
                     MaterialPageRoute(
                       builder:
-                          (context) => WebViewScreen(
+                          (context) => ViewBillInAppWebView(
                             url:
                                 "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/ViewBill.aspx",
                             email: widget.userDetails!.email,
-                            phoneNumber: widget.userDetails!.mobileNo,
-                            method: "POST",
+                            mobileno: widget.userDetails!.mobileNo,
                           ),
                     ),
                   );
@@ -154,12 +154,11 @@ class _BNMCDrawerState extends State<BNMCDrawer> {
                     context,
                     MaterialPageRoute(
                       builder:
-                          (context) => WebViewScreen(
+                          (context) => ViewBillInAppWebView(
                             url:
                                 "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/RecDownload.aspx",
                             email: widget.userDetails!.email,
-                            phoneNumber: widget.userDetails!.mobileNo,
-                            method: "POST",
+                            mobileno: widget.userDetails!.mobileNo,
                           ),
                     ),
                   );
