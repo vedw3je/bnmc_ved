@@ -80,15 +80,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => WebViewScreen(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (_, __, ___) => WebViewScreen(
                                     url:
                                         "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/Transaction/FrmAboutMsg.aspx",
                                     email: userDetails!.email,
                                     phoneNumber: userDetails!.mobileNo,
                                     method: "POST",
                                   ),
+
+                              transitionDuration: Duration(
+                                milliseconds: 0,
+                              ), // No animation
                             ),
                           );
                         },
@@ -191,15 +195,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => WebViewScreen(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (_, __, ___) => WebViewScreen(
                                     url:
                                         "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/Transaction/FrmSchemeList.aspx",
                                     email: userDetails!.email,
                                     phoneNumber: userDetails!.mobileNo,
                                     method: "POST",
                                   ),
+                              transitionDuration: const Duration(
+                                milliseconds: 0,
+                              ), // No animation
                             ),
                           );
                         },

@@ -48,14 +48,17 @@ class _BillsScreenState extends State<BillsScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => ViewBillInAppWebView(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (_, __, ___) => ViewBillInAppWebView(
                                     url:
                                         "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/ViewBill.aspx",
                                     email: widget.userDetails!.email,
                                     mobileno: widget.userDetails!.mobileNo,
                                   ),
+                              transitionDuration: Duration(
+                                milliseconds: 0,
+                              ), // No animation
                             ),
                           );
                         },
@@ -95,14 +98,17 @@ class _BillsScreenState extends State<BillsScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => ViewBillInAppWebView(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (_, __, ___) => ViewBillInAppWebView(
                                     url:
                                         "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/RecDownload.aspx",
                                     email: widget.userDetails!.email,
                                     mobileno: widget.userDetails!.mobileNo,
                                   ),
+                              transitionDuration: Duration(
+                                milliseconds: 0,
+                              ), // No animation
                             ),
                           );
                         },

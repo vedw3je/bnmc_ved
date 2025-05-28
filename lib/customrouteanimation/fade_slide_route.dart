@@ -7,9 +7,9 @@ class FadeSlideRoute extends PageRouteBuilder {
     : super(
         pageBuilder: (context, animation, secondaryAnimation) => page,
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          // Fade and slide from bottom
+          // Slide from right to left
           final slideTween = Tween<Offset>(
-            begin: const Offset(0.0, 0.3),
+            begin: const Offset(1.0, 0.0), // Start from right side
             end: Offset.zero,
           ).chain(CurveTween(curve: Curves.easeInOut));
 

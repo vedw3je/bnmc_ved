@@ -30,6 +30,13 @@ class _WebViewScreenState extends State<WebViewScreen> {
   bool _isLoading = true;
 
   @override
+  void dispose() {
+    _webViewController.clearCache(); // optional: clear cache if needed
+    // _webViewController.loadUrl(urlRequest: URLRequest(url: WebUri('about:blank'))); // optional
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarStatic(),

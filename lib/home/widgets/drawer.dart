@@ -84,15 +84,19 @@ class _BNMCDrawerState extends State<BNMCDrawer> {
                 () => _onItemTap(0, () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => WebViewScreen(
+                    PageRouteBuilder(
+                      pageBuilder:
+                          (_, __, ___) => WebViewScreen(
                             url:
                                 "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/Transaction/FrmAboutMsg.aspx",
                             email: widget.userDetails!.email,
                             phoneNumber: widget.userDetails!.mobileNo,
                             method: "POST",
                           ),
+
+                      transitionDuration: Duration(
+                        milliseconds: 0,
+                      ), // No animation
                     ),
                   );
                 }),
@@ -119,14 +123,17 @@ class _BNMCDrawerState extends State<BNMCDrawer> {
                 () => _onItemTap(2, () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => ViewBillInAppWebView(
+                    PageRouteBuilder(
+                      pageBuilder:
+                          (_, __, ___) => ViewBillInAppWebView(
                             url:
                                 "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/ViewBill.aspx",
                             email: widget.userDetails!.email,
                             mobileno: widget.userDetails!.mobileNo,
                           ),
+                      transitionDuration: Duration(
+                        milliseconds: 0,
+                      ), // No animation
                     ),
                   );
                 }),
@@ -152,14 +159,17 @@ class _BNMCDrawerState extends State<BNMCDrawer> {
                 () => _onItemTap(4, () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => ViewBillInAppWebView(
+                    PageRouteBuilder(
+                      pageBuilder:
+                          (_, __, ___) => ViewBillInAppWebView(
                             url:
                                 "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/RecDownload.aspx",
                             email: widget.userDetails!.email,
                             mobileno: widget.userDetails!.mobileNo,
                           ),
+                      transitionDuration: Duration(
+                        milliseconds: 0,
+                      ), // No animation
                     ),
                   );
                 }),
@@ -193,15 +203,18 @@ class _BNMCDrawerState extends State<BNMCDrawer> {
                 () => _onItemTap(6, () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => WebViewScreen(
+                    PageRouteBuilder(
+                      pageBuilder:
+                          (_, __, ___) => WebViewScreen(
                             url:
                                 "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/Transaction/FrmOfficerList.aspx?@=1",
                             email: widget.userDetails!.email,
                             phoneNumber: widget.userDetails!.mobileNo,
                             method: "POST",
                           ),
+                      transitionDuration: Duration(
+                        milliseconds: 0,
+                      ), // No animation
                     ),
                   );
                 }),

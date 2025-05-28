@@ -48,15 +48,16 @@ class _BhiwandiCorporationScreenState extends State<BhiwandiCorporationScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => WebViewScreen(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (_, __, ___) => WebViewScreen(
                                     url:
                                         "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/Transaction/FrmMayorMsg.aspx",
                                     email: widget.userDetails!.email,
                                     phoneNumber: widget.userDetails!.mobileNo,
                                     method: "POST",
                                   ),
+                              transitionDuration: Duration(milliseconds: 0),
                             ),
                           );
                         },
@@ -72,15 +73,16 @@ class _BhiwandiCorporationScreenState extends State<BhiwandiCorporationScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => WebViewScreen(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (_, __, ___) => WebViewScreen(
                                     url:
                                         "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/Transaction/FrmCommissionerMsg.aspx",
                                     email: widget.userDetails!.email,
                                     phoneNumber: widget.userDetails!.mobileNo,
                                     method: "POST",
                                   ),
+                              transitionDuration: Duration(milliseconds: 0),
                             ),
                           );
                         },
@@ -101,15 +103,16 @@ class _BhiwandiCorporationScreenState extends State<BhiwandiCorporationScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => WebViewScreen(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (_, __, ___) => WebViewScreen(
                                     url:
                                         "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/Transaction/FrmOfficerList.aspx?@=2",
                                     email: widget.userDetails!.email,
                                     phoneNumber: widget.userDetails!.mobileNo,
                                     method: "POST",
                                   ),
+                              transitionDuration: Duration(milliseconds: 0),
                             ),
                           );
                         },
@@ -125,15 +128,18 @@ class _BhiwandiCorporationScreenState extends State<BhiwandiCorporationScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => WebViewScreen(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (_, __, ___) => WebViewScreen(
                                     url:
                                         "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/Transaction/FrmOfficerList.aspx?@=1",
                                     email: widget.userDetails!.email,
                                     phoneNumber: widget.userDetails!.mobileNo,
                                     method: "POST",
                                   ),
+                              transitionDuration: const Duration(
+                                milliseconds: 0,
+                              ),
                             ),
                           );
                         },
@@ -154,9 +160,7 @@ class _BhiwandiCorporationScreenState extends State<BhiwandiCorporationScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => const BnmcMapScreen(),
-                            ),
+                            FadeSlideRoute(page: const BnmcMapScreen()),
                           );
                         },
                       ),
@@ -169,13 +173,17 @@ class _BhiwandiCorporationScreenState extends State<BhiwandiCorporationScreen> {
                         label: 'RTS',
                         onTap: () {
                           Navigator.of(context).push(
-                            FadeSlideRoute(
-                              page: WebViewScreen(
-                                url:
-                                    'https://nagarkaryavali.com/ANCL_RTS/App/FrmDeptServices.aspx?@=3AF849AFBCC50DDCEE31E613263F0BCC',
-                                phoneNumber: widget.userDetails!.mobileNo,
-                                email: widget.userDetails!.email,
-                                method: "GET",
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (_, __, ___) => WebViewScreen(
+                                    url:
+                                        'https://nagarkaryavali.com/ANCL_RTS/App/FrmDeptServices.aspx?@=3AF849AFBCC50DDCEE31E613263F0BCC',
+                                    phoneNumber: widget.userDetails!.mobileNo,
+                                    email: widget.userDetails!.email,
+                                    method: "GET",
+                                  ),
+                              transitionDuration: const Duration(
+                                milliseconds: 0,
                               ),
                             ),
                           );
@@ -197,15 +205,18 @@ class _BhiwandiCorporationScreenState extends State<BhiwandiCorporationScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => WebViewScreen(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (_, __, ___) => WebViewScreen(
                                     url:
                                         "https://mahatenders.gov.in/nicgep/app",
                                     email: widget.userDetails!.email,
                                     phoneNumber: widget.userDetails!.mobileNo,
                                     method: "GET",
                                   ),
+                              transitionDuration: const Duration(
+                                milliseconds: 0,
+                              ), // No animation
                             ),
                           );
                         },

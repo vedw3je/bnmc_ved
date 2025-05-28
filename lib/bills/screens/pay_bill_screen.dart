@@ -41,15 +41,16 @@ class _PayBillScreenState extends State<PayBillScreen> {
 
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder:
-              (context) => PayBillInAppWebView(
+        PageRouteBuilder(
+          pageBuilder:
+              (_, __, ___) => PayBillInAppWebView(
                 url:
                     "http://propertytax.bhiwandicorporation.in/BNCMCPGApp/PayBill.aspx",
                 phoneNumber: widget.userDetails!.mobileNo,
                 email: widget.userDetails!.email,
                 propertyNumber: _propertyNumberController.text,
               ),
+          transitionDuration: Duration(milliseconds: 0), // no animation
         ),
       );
     }

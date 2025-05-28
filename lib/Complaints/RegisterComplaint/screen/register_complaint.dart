@@ -79,6 +79,7 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
     setState(() {
       _pickedImage = image;
     });
+    Navigator.pop(context);
   }
 
   void _submitComplaint() async {
@@ -220,6 +221,9 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
                   onChanged: (id) async {
                     setState(() {
                       selectedDepartmentId = id;
+                      selectedComplaintType = "";
+                      selectedSubType = "";
+                      subTypeList = Future.value([]);
                     });
                     fetchComplaintTypes(id!);
                   },
@@ -241,6 +245,7 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
                     setState(() {
                       selectedComplaintType = value;
                       fetchSubTypes(value!);
+                      selectedSubType = "";
                     });
                   },
                 ),
@@ -327,41 +332,42 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
 
                 Row(
                   children: [
-                    CustomButton(
-                      text: 'Take Photo',
-                      color: Colors.green, // Green button
-                      onPressed: () {
-                        // Open the ImagePickerWidget to allow the user to take a photo or select from gallery
-                        showDialog(
-                          context: context,
-                          builder:
-                              (context) => ImagePickerWidget(
-                                onImagePicked: _onImagePicked,
-                              ), // Assuming ImagePickerWidget is the widget you've created
-                        );
-                      },
+                    Expanded(
+                      child: CustomButton(
+                        isLoading: false,
+                        text: 'Take Photo',
+                        color: Colors.green,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder:
+                                (context) => ImagePickerWidget(
+                                  onImagePicked: _onImagePicked,
+                                ),
+                          );
+                        },
+                      ),
                     ),
-                    const Spacer(),
-
-                    CustomButton(
-                      text: 'Submit Complaint',
-                      color: Colors.red, // Red button
-                      onPressed:
-                          isLoading
-                              ? () {}
-                              : () {
-                                if (_formKey.currentState!.validate()) {
-                                  _submitComplaint();
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                        'Please fill all required fields',
-                                      ),
-                                    ),
-                                  );
-                                }
-                              },
+                    const SizedBox(width: 16), // Space between buttons
+                    Expanded(
+                      child: CustomButton(
+                        isLoading: isLoading,
+                        text: 'Submit Complaint',
+                        color: Colors.red,
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _submitComplaint();
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Please fill all required fields',
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ],
                 ),

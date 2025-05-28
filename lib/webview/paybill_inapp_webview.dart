@@ -28,6 +28,13 @@ class _PayBillInAppWebViewState extends State<PayBillInAppWebView> {
   late InAppWebViewController _webViewController;
 
   @override
+  void dispose() {
+    _webViewController.clearCache(); // optional: clear cache if needed
+    // _webViewController.loadUrl(urlRequest: URLRequest(url: WebUri('about:blank'))); // optional
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarStatic(),

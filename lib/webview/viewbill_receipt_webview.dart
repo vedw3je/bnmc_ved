@@ -32,6 +32,12 @@ class ViewBillInAppWebView extends StatefulWidget {
 
 class _ViewBillInAppWebViewState extends State<ViewBillInAppWebView> {
   late InAppWebViewController _webViewController;
+  @override
+  void dispose() {
+    _webViewController.clearCache(); // optional: clear cache if needed
+    // _webViewController.loadUrl(urlRequest: URLRequest(url: WebUri('about:blank'))); // optional
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
