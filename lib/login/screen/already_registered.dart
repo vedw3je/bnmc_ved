@@ -1,3 +1,4 @@
+import 'package:bncmc/commonwidgets/appbar_static.dart';
 import 'package:bncmc/commonwidgets/gradient_container.dart';
 import 'package:bncmc/login/bloc/login_cubit.dart';
 import 'package:bncmc/login/screen/otp_screen.dart';
@@ -13,33 +14,7 @@ class AlreadyRegisteredScreen extends StatelessWidget {
     final TextEditingController contactController = TextEditingController();
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple[700],
-
-        title: Row(
-          mainAxisSize: MainAxisSize.min, // Prevent extra space
-
-          children: [
-            SizedBox(
-              width: 60,
-              height: 30,
-              child: Image.asset(
-                'assets/drawable/bncmc_nav_head.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(width: 8), // Space between image and text
-            const Text(
-              'Bhiwandi mSeva',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ), // Title in the AppBar
-      ),
+      appBar: AppBarStatic(),
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginError) {
@@ -83,20 +58,32 @@ class AlreadyRegisteredScreen extends StatelessWidget {
               ),
               SizedBox(height: 20.0),
               Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    final contactNo = contactController.text.trim();
-                    if (contactNo.isNotEmpty) {
-                      context.read<LoginCubit>().sendOtp(contactNo);
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Please enter a contact number'),
-                        ),
-                      );
-                    }
-                  },
-                  child: Text('Login'),
+                child: SizedBox(
+                  width: 150,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 8,
+                      backgroundColor: Colors.deepPurple,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
+                      ),
+                    ),
+                    onPressed: () {
+                      final contactNo = contactController.text.trim();
+                      if (contactNo.isNotEmpty) {
+                        context.read<LoginCubit>().sendOtp(contactNo);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Please enter a contact number'),
+                          ),
+                        );
+                      }
+                    },
+                    child: Text('Login'),
+                  ),
                 ),
               ),
             ],

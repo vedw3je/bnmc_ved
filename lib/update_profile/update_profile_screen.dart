@@ -159,22 +159,25 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         },
                       ),
                       const SizedBox(height: 24),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            _saveProfile();
-                          }
-                        },
-
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.deepPurple,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 24,
-                            vertical: 12,
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _saveProfile();
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            elevation: 8,
+                            backgroundColor: Colors.deepPurple,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 12,
+                            ),
                           ),
+                          child: const Text('Save'),
                         ),
-                        child: const Text('Save'),
                       ),
                     ],
                   ),

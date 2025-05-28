@@ -1,3 +1,4 @@
+import 'package:bncmc/commonwidgets/appbar_static.dart';
 import 'package:bncmc/commonwidgets/gradient_container.dart';
 import 'package:bncmc/home/homescreen.dart';
 import 'package:bncmc/login/bloc/login_cubit.dart';
@@ -13,33 +14,7 @@ class OtpScreen extends StatelessWidget {
     final TextEditingController otpController = TextEditingController();
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.deepPurple[700],
-
-        centerTitle: true,
-        title: Row(
-          mainAxisSize: MainAxisSize.min, // Prevent extra space
-
-          children: [
-            SizedBox(
-              width: 60,
-              height: 30,
-              child: Image.asset(
-                'assets/drawable/bncmc_nav_head.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(width: 8), // Space between image and text
-            const Text(
-              'Bhiwandi mSeva',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
+      appBar: AppBarStatic(),
       body: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is otpError) {

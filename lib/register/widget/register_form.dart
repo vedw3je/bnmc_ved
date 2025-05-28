@@ -1,3 +1,4 @@
+import 'package:bncmc/commonwidgets/appbar_static.dart';
 import 'package:bncmc/commonwidgets/gradient_container.dart';
 import 'package:bncmc/home/homescreen.dart';
 import 'package:bncmc/login/bloc/login_cubit.dart';
@@ -41,33 +42,7 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.deepPurple[700],
-
-        title: Row(
-          mainAxisSize: MainAxisSize.min, // Prevent extra space
-
-          children: [
-            SizedBox(
-              width: 60,
-              height: 30,
-              child: Image.asset(
-                'assets/drawable/bncmc_nav_head.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(width: 8),
-            const Text(
-              'Bhiwandi mSeva',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
+      appBar: AppBarStatic(),
       body: BlocListener<RegisterCubit, RegisterState>(
         listener: (context, state) {
           if (state is RegisterSuccess) {
@@ -174,6 +149,7 @@ class _RegisterFormState extends State<RegisterForm> {
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
+                                    elevation: 8,
                                     backgroundColor: Colors.deepPurple,
                                     foregroundColor: Colors.white,
                                     padding: const EdgeInsets.symmetric(
@@ -211,7 +187,7 @@ class _RegisterFormState extends State<RegisterForm> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(24),
                                     ),
-                                    elevation: 4,
+                                    elevation: 8,
                                     shadowColor: Colors.redAccent,
                                   ),
                                   child: const Text('Already Registered?'),

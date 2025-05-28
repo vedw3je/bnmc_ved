@@ -13,10 +13,11 @@ class GradientContainer extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Colors.yellow[700]!, // Bright Yellow
-            Colors.amber[600]!, // Golden
-            Colors.brown[700]!, // Dark
+            Colors.amber[800]!, // Dark amber
+            Colors.yellow[800]!, // Rich yellow
+            Colors.orange[900]!, // Burnt orange/golden
           ],
+
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
