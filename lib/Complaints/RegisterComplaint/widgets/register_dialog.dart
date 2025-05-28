@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class RegisterDialog extends StatelessWidget {
-  const RegisterDialog({super.key});
+  final String complainNumber;
+  const RegisterDialog({super.key, required this.complainNumber});
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +29,8 @@ class RegisterDialog extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Your complaint has been successfully registered.',
+          Text(
+            'Your complaint has been successfully registered with Complaint Number : $complainNumber',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 16, color: Colors.black),
           ),

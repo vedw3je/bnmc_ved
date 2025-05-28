@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:bncmc/Complaints/RegisterComplaint/models/complaint_response.dart';
 import 'package:bncmc/Complaints/RegisterComplaint/models/complaint_subtype.dart';
 import 'package:bncmc/Complaints/RegisterComplaint/models/complaint_type.dart';
 import 'package:bncmc/Complaints/RegisterComplaint/models/department.dart';
@@ -91,8 +92,8 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
         final bytes = await _pickedImage!.readAsBytes();
         base64Image = base64Encode(bytes);
       }
-
-      bool isSuccess = await RegisterComplaintRepository().submitComplaint(
+      ComplaintResponseModel?
+      response = await RegisterComplaintRepository().submitComplaint(
         departmentId: selectedDepartmentId.toString(),
         complaintTypeId: selectedComplaintType.toString(),
         complaintSubTypeId: selectedSubType.toString(),
@@ -107,8 +108,7 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
         complaintPlace: isOnsite ? "ONSITE" : "OFFSITE",
       );
 
-      if (isSuccess) {
-        // Clear the form fields after success
+      if (response != null) {
         complaintdetailscontroller.clear();
         landmarkcontroller.clear();
         setState(() {
@@ -120,7 +120,12 @@ class _ComplaintFormScreenState extends State<ComplaintFormScreen> {
           isOnsite = false;
         });
 
-        showDialog(context: context, builder: (context) => RegisterDialog());
+        showDialog(
+          context: context,
+          builder:
+              (context) =>
+                  RegisterDialog(complainNumber: response.complaintNumber),
+        );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Failed to submit complaint.")),

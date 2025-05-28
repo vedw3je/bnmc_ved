@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:bncmc/Complaints/RegisterComplaint/models/complaint_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 
@@ -10,7 +11,7 @@ class RegisterComplaintRepository {
   final String _method = "RegisterComplaintNew_BNCMC";
   final String _namespace = "http://tempuri.org/";
 
-  Future<bool> submitComplaint({
+  Future<ComplaintResponseModel?> submitComplaint({
     required String departmentId,
     required String complaintTypeId,
     required String complaintSubTypeId,
@@ -24,11 +25,11 @@ class RegisterComplaintRepository {
     required String complaintPlace,
   }) async {
     try {
-      // Step 1: Request permission
+      // Step 1: Check permissions
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
         log('Location services are disabled.');
-        return false;
+        return null;
       }
 
       LocationPermission permission = await Geolocator.checkPermission();
@@ -36,13 +37,13 @@ class RegisterComplaintRepository {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
           log('Location permission denied.');
-          return false;
+          return null;
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
         log('Location permissions are permanently denied.');
-        return false;
+        return null;
       }
 
       // Step 2: Get location
@@ -93,25 +94,26 @@ class RegisterComplaintRepository {
             .replaceAll('&gt;', '>')
             .replaceAll('&amp;', '&')
             .replaceAll('&#xD;', '');
+
         log(responseBody);
 
         if (!responseBody.contains("<SuccessCode>9999</SuccessCode>")) {
-          final msgStart = responseBody.indexOf("<SuccessMessage>") + 16;
-          final msgEnd = responseBody.indexOf("</SuccessMessage>");
-          final message = responseBody.substring(msgStart, msgEnd);
-          log("Server error: $message");
-          return false;
+          log("Server returned error in XML.");
+          return null;
         }
 
-        log("Complaint submitted successfully.");
-        return true;
+        final parsedResponse = ComplaintResponseModel.fromXml(responseBody);
+        log(
+          "Complaint submitted successfully with number: ${parsedResponse.complaintNumber}",
+        );
+        return parsedResponse;
       } else {
         log("Failed to submit complaint. HTTP ${response.statusCode}");
-        return false;
+        return null;
       }
     } catch (e) {
       log("Error: $e");
-      return false;
+      return null;
     }
   }
 }
