@@ -7,6 +7,7 @@ void main() async {
   await FlutterDownloader.initialize(
     debug: true, // optional: set false in production
   );
+
   runApp(const MyApp());
 }
 

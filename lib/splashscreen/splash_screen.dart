@@ -1,4 +1,5 @@
 import 'package:bncmc/home/homescreen.dart';
+import 'package:bncmc/home/new_homescreen.dart';
 import 'package:bncmc/login/screen/already_registered.dart';
 import 'package:bncmc/register/screen/register_screen.dart';
 import 'package:bncmc/repository/user_details_repository.dart';
@@ -23,7 +24,7 @@ class SplashScreen extends StatelessWidget {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => HomeScreen(contactNumber: mobileNo),
+              builder: (context) => NewHomescreen(contactNumber: mobileNo),
             ),
           );
         }
