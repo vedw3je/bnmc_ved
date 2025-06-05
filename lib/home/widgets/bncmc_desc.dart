@@ -6,7 +6,7 @@ class BncmcDesc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 28),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         decoration: BoxDecoration(
@@ -15,7 +15,7 @@ class BncmcDesc extends StatelessWidget {
         ),
         child: RichText(
           text: TextSpan(
-            style: TextStyle(fontSize: 11, color: Colors.white, height: 1.4),
+            style: TextStyle(fontSize: 12, color: Colors.white, height: 1.4),
             children: const [
               TextSpan(
                 text: 'Bhiwandi-Nizampur City Municipal Corporation (BNCMC) ',

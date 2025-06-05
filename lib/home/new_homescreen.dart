@@ -44,7 +44,7 @@ class _NewHomescreenState extends State<NewHomescreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/bnmcbackg.jpeg'), // Background image
+          image: AssetImage('assets/new/background.png'), // Background image
           fit: BoxFit.cover, // Cover the entire screen
         ),
       ),
@@ -56,63 +56,71 @@ class _NewHomescreenState extends State<NewHomescreen> {
           userDetails: userDetails,
         ),
         drawer: BNMCDrawer(scaffoldKey: _scaffoldKey, userDetails: userDetails),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ///
+              UserInfoStrip(username: userDetails?.firstName ?? 'Guest'),
 
-        body: Column(
-          children: [
-            ///
-            UserInfoStrip(username: userDetails?.firstName ?? 'Guest'),
+              const SizedBox(height: 15),
 
-            const SizedBox(height: 10),
+              ///
+              HomeScreenImage(image: "assets/new/Top_banner.png"),
 
-            ///
-            HomeScreenImage(),
+              BncmcDesc(),
 
-            BncmcDesc(),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 2, // 2 cards per row
-                mainAxisSpacing: 0,
-                crossAxisSpacing: 0,
-                childAspectRatio: 1.6,
-                // adjust for your desired card shape
-                children: [
-                  NewHomecards(
-                    icon: Icons.person,
-                    label: 'About BNCMC',
-                    onPressed: () => print('Profile tapped'),
-                  ),
-                  NewHomecards(
-                    icon: Icons.settings,
-                    label: 'Bhiwandi Corporation',
-                    onPressed: () => print('Settings tapped'),
-                  ),
-                  NewHomecards(
-                    icon: Icons.blinds_closed_sharp,
-                    label: 'Bills',
-                    onPressed: () => print('Map tapped'),
-                  ),
-                  NewHomecards(
-                    icon: Icons.notifications,
-                    label: 'Complaints',
-                    onPressed: () => print('Alerts tapped'),
-                  ),
-                  NewHomecards(
-                    icon: Icons.info,
-                    label: 'Update Profile',
-                    onPressed: () => print('Info tapped'),
-                  ),
-                  NewHomecards(
-                    icon: Icons.help,
-                    label: 'Scheme',
-                    onPressed: () => print('Help tapped'),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: GridView.count(
+                  shrinkWrap: true,
+                  physics:
+                      NeverScrollableScrollPhysics(), // prevent inner scrolling
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 0,
+                  crossAxisSpacing: 0,
+                  childAspectRatio: 1.6,
+                  children: [
+                    NewHomecards(
+                      icon: "assets/new/about_us.png",
+                      label: 'About BNCMC',
+                      onPressed: () => print('Profile tapped'),
+                    ),
+                    NewHomecards(
+                      icon: "assets/new/logo.png",
+                      label: 'Bhiwandi Corporation',
+                      onPressed: () => print('Settings tapped'),
+                      isLogo: true,
+                    ),
+                    NewHomecards(
+                      icon: "assets/new/bill.png",
+                      label: 'Bills',
+                      onPressed: () => print('Map tapped'),
+                    ),
+                    NewHomecards(
+                      icon: "assets/new/complaints.png",
+                      label: 'Complaints',
+                      onPressed: () => print('Alerts tapped'),
+                    ),
+                    NewHomecards(
+                      icon: "assets/new/update_profile.png",
+                      label: 'Update Profile',
+                      onPressed: () => print('Info tapped'),
+                    ),
+                    NewHomecards(
+                      icon: "assets/new/scheme.png",
+                      label: 'Scheme',
+                      onPressed: () => print('Help tapped'),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+
+              HomeScreenImage(image: "assets/new/bottom_banner.png"),
+
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

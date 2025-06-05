@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 class NewHomecards extends StatefulWidget {
-  final IconData icon;
+  final String icon;
   final String label;
   final VoidCallback onPressed;
+  final bool? isLogo;
 
   const NewHomecards({
     super.key,
     required this.icon,
     required this.label,
     required this.onPressed,
+    this.isLogo,
   });
 
   @override
@@ -54,7 +56,14 @@ class _NewHomecardsState extends State<NewHomecards> {
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 ),
                 child: Center(
-                  child: Icon(widget.icon, size: 32, color: Colors.deepPurple),
+                  child: Image.asset(
+                    widget.icon,
+                    height: 50,
+                    color:
+                        (widget.isLogo != null && widget.isLogo == true)
+                            ? null
+                            : Color.fromRGBO(23, 58, 229, 1),
+                  ),
                 ),
               ),
             ),
@@ -73,7 +82,7 @@ class _NewHomecardsState extends State<NewHomecards> {
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,
                 ),

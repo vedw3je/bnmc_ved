@@ -39,10 +39,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
           SizedBox(
             height: screenWidth * 0.20,
             width: screenWidth * 0.15,
-            child: Image.asset(
-              'assets/drawable/bncmc_nav_head.png',
-              fit: BoxFit.contain,
-            ),
+            child: Image.asset('assets/new/logo.png', fit: BoxFit.contain),
           ),
           const SizedBox(width: 8),
 
@@ -93,7 +90,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
               ),
 
               IconButton(
-                icon: const Icon(Icons.notifications, color: Colors.white),
+                icon: const Icon(
+                  Icons.notifications_active,
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   print("Notifications tapped");
                 },
